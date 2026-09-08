@@ -12,5 +12,27 @@
             Author = author;
             IsBorrowed = false;
         }
+
+        public bool BorrowBook()
+        {
+            if (IsBorrowed)
+            {
+                return false;
+            }
+
+            IsBorrowed = true;
+            return true;
+        }
+
+        public bool ReturnBook()
+        {
+            if (!IsBorrowed)
+            {
+                return false;
+            }
+
+            IsBorrowed = false;
+            return true;
+        }
     }
 }
