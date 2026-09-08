@@ -1,12 +1,19 @@
 ﻿using System;
+using System.IO;
 
 namespace LibraryManagementSystem
 {
     internal class Program
     {
+        private const string SaveFilePath = "library.json";
         static void Main(string[] args)
         {
             Library library = new Library();
+            if (File.Exists(SaveFilePath))
+            {
+                library.LoadFromFile(SaveFilePath);
+                Console.WriteLine("Loaded existing library data.");
+            }
             bool running = true;
 
             while (running)
@@ -46,6 +53,7 @@ namespace LibraryManagementSystem
                         break;
 
                     case "6":
+                        library.SaveToFile(SaveFilePath);
                         running = false;
                         Console.WriteLine("Goodbye!");
                         break;
