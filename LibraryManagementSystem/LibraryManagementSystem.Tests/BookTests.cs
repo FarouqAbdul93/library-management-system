@@ -62,5 +62,26 @@ namespace LibraryManagementSystem.Tests
             Assert.That(result, Is.False);
             Assert.That(book.IsBorrowed, Is.False); 
         }
+
+        [Test]
+        public void ToString_WhenAvailable_ReturnsFormattedStringShowingAvailable()
+        {
+            var book = new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling");
+
+            string result = book.ToString();
+
+            Assert.That(result, Is.EqualTo("Harry Potter and the Half-Blood Prince by J.K. Rowling (Available)"));
+        }
+
+        [Test]
+        public void ToString_WhenBorrowed_ReturnsFormattedStringShowingBorrowed()
+        {
+            var book = new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling");
+            book.BorrowBook();
+
+            string result = book.ToString();
+
+            Assert.That(result, Is.EqualTo("Harry Potter and the Deathly Hallows by J.K. Rowling (Borrowed)"));
+        }
     }
 }

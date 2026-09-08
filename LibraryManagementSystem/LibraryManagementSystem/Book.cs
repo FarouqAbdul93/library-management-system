@@ -34,5 +34,19 @@
             IsBorrowed = false;
             return true;
         }
+
+        public override string ToString()
+        {
+            string status;
+            if (IsBorrowed)
+            {
+                status = "Borrowed";
+            }
+            else
+            {
+                status = "Available";
+            }
+            return $"{Title} by {Author} ({status})";
+        }
     }
 }
