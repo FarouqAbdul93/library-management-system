@@ -46,6 +46,13 @@ namespace LibraryManagementSystem
             return book.ReturnBook();
         }
 
+        public List<Book> SearchBooks(string searchTerm)
+        {
+            return books
+                .Where(b => b.Title == searchTerm || b.Author == searchTerm)
+                .ToList();
+        }
+
         public void SaveToFile(string filePath)
         {
             string json = JsonSerializer.Serialize(books);

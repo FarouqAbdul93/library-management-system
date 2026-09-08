@@ -150,5 +150,40 @@ namespace LibraryManagementSystem.Tests
                 }
             }
         }
+
+        [Test]
+        public void SearchBooks_WhenSearchTermMatchesTitle_ReturnsThatBook()
+        {
+            var library = new Library();
+            var book = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling");
+            library.AddBook(book);
+
+            var results = library.SearchBooks("Harry Potter and the Philosopher's Stone");
+
+            Assert.That(results.Count, Is.EqualTo(1));
+            Assert.That(results[0].Title, Is.EqualTo("Harry Potter and the Philosopher's Stone"));
+        }
+
+        [Test]
+        public void SearchBooks_WhenSearchTermMatchesAuthorWithMultipleBooks_ReturnsAllTheirBooks()
+        {
+            var library = new Library();
+            library.AddBook(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling"));
+            library.AddBook(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling"));
+
+            var results = library.SearchBooks("J.K. Rowling");
+
+            Assert.That(results.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void SearchBooks_WhenNoMatch_ReturnsEmptyList()
+        {
+            var library = new Library();
+
+            var results = library.SearchBooks("Nonexistent");
+
+            Assert.That(results.Count, Is.EqualTo(0));
+        }
     }
 }
