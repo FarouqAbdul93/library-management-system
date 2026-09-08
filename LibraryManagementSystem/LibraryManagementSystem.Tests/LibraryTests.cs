@@ -223,5 +223,31 @@ namespace LibraryManagementSystem.Tests
             Assert.That(result, Is.True);
             Assert.That(book.IsBorrowed, Is.True);
         }
+
+        [Test]
+        public void GetBooksSortedByTitle_ReturnsBooksInTitleAlphabeticalOrder()
+        {
+            var library = new Library();
+            library.AddBook(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling"));
+            library.AddBook(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling"));
+
+            var results = library.GetBooksSortedByTitle();
+
+            Assert.That(results[0].Title, Is.EqualTo("Harry Potter and the Chamber of Secrets"));
+            Assert.That(results[1].Title, Is.EqualTo("Harry Potter and the Prisoner of Azkaban"));
+        }
+
+        [Test]
+        public void GetBooksSortedByAuthor_ReturnsBooksInAuthorAlphabeticalOrder()
+        {
+            var library = new Library();
+            library.AddBook(new Book("The Hobbit", "J.R.R. Tolkien"));
+            library.AddBook(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling"));
+
+            var results = library.GetBooksSortedByAuthor();
+
+            Assert.That(results[0].Author, Is.EqualTo("J.K. Rowling"));
+            Assert.That(results[1].Author, Is.EqualTo("J.R.R. Tolkien"));
+        }
     }
 }

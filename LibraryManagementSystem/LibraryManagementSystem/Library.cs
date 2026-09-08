@@ -55,6 +55,16 @@ namespace LibraryManagementSystem
                 .ToList();
         }
 
+        public List<Book> GetBooksSortedByTitle()
+        {
+            return books.OrderBy(b => b.Title).ToList();
+        }
+
+        public List<Book> GetBooksSortedByAuthor()
+        {
+            return books.OrderBy(b => b.Author).ToList();
+        }
+
         public void SaveToFile(string filePath)
         {
             string json = JsonSerializer.Serialize(books);

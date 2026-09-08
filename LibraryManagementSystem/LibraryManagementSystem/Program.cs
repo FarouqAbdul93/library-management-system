@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace LibraryManagementSystem
@@ -25,7 +26,8 @@ namespace LibraryManagementSystem
                 Console.WriteLine("3. Search for a book");
                 Console.WriteLine("4. Borrow a book");
                 Console.WriteLine("5. Return a book");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. View books sorted");
+                Console.WriteLine("7. Exit");
                 Console.Write("Choose an option: ");
 
                 string? choice = Console.ReadLine();
@@ -53,13 +55,17 @@ namespace LibraryManagementSystem
                         break;
 
                     case "6":
+                        ViewBooksSorted(library);
+                        break;
+
+                    case "7":
                         library.SaveToFile(SaveFilePath);
                         running = false;
                         Console.WriteLine("Goodbye!");
                         break;
 
                     default:
-                        Console.WriteLine("Invalid option. Please choose 1-6.");
+                        Console.WriteLine("Invalid option. Please choose 1-7.");
                         break;
                 }
             }
@@ -96,6 +102,34 @@ namespace LibraryManagementSystem
 
             Console.WriteLine("Available books:");
             foreach (var book in availableBooks)
+            {
+                Console.WriteLine($"- {book}");
+            }
+        }
+
+        static void ViewBooksSorted(Library library)
+        {
+            Console.Write("Sort by (title/author): ");
+            string? sortChoice = Console.ReadLine();
+
+            List<Book> sortedBooks;
+
+            if (string.Equals(sortChoice, "author", StringComparison.OrdinalIgnoreCase))
+            {
+                sortedBooks = library.GetBooksSortedByAuthor();
+            }
+            else
+            {
+                sortedBooks = library.GetBooksSortedByTitle();
+            }
+
+            if (sortedBooks.Count == 0)
+            {
+                Console.WriteLine("No books in the library yet.");
+                return;
+            }
+
+            foreach (var book in sortedBooks)
             {
                 Console.WriteLine($"- {book}");
             }
