@@ -103,18 +103,22 @@ namespace LibraryManagementSystem
 
         static void SearchBook(Library library)
         {
-            Console.Write("Enter title to search for: ");
-            string? title = Console.ReadLine();
+            Console.Write("Enter title or author to search for: ");
+            string? searchTerm = Console.ReadLine();
 
-            var book = library.SearchBook(title ?? "");
+            var results = library.SearchBooks(searchTerm ?? "");
 
-            if (book == null)
+            if (results.Count == 0)
             {
-                Console.WriteLine("No book found with that title.");
+                Console.WriteLine("No books found matching that search.");
             }
             else
             {
-                Console.WriteLine($"Found: {book}");
+                Console.WriteLine("Found:");
+                foreach (var book in results)
+                {
+                    Console.WriteLine($"- {book}");
+                }
             }
         }
 

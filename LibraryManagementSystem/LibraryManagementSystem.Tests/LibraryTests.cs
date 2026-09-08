@@ -185,5 +185,43 @@ namespace LibraryManagementSystem.Tests
 
             Assert.That(results.Count, Is.EqualTo(0));
         }
+
+        [Test]
+        public void SearchBook_IsCaseInsensitive()
+        {
+            var library = new Library();
+            var book = new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling");
+            library.AddBook(book);
+
+            var result = library.SearchBook("harry potter and the deathly hallows");
+
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void SearchBooks_IsCaseInsensitiveForTitleAndAuthor()
+        {
+            var library = new Library();
+            library.AddBook(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling"));
+
+            var byTitle = library.SearchBooks("harry potter and the half-blood prince");
+            var byAuthor = library.SearchBooks("j.k. rowling");
+
+            Assert.That(byTitle.Count, Is.EqualTo(1));
+            Assert.That(byAuthor.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void BorrowBook_IsCaseInsensitive()
+        {
+            var library = new Library();
+            var book = new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling");
+            library.AddBook(book);
+
+            bool result = library.BorrowBook("harry potter and the order of the phoenix");
+
+            Assert.That(result, Is.True);
+            Assert.That(book.IsBorrowed, Is.True);
+        }
     }
 }

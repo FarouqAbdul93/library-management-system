@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text.Json;
@@ -16,7 +17,7 @@ namespace LibraryManagementSystem
 
         public Book? SearchBook(string title)
         {
-            return books.FirstOrDefault(b => b.Title == title);
+            return books.FirstOrDefault(b => string.Equals(b.Title, title, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Book> ViewAvailableBooks()
@@ -49,7 +50,8 @@ namespace LibraryManagementSystem
         public List<Book> SearchBooks(string searchTerm)
         {
             return books
-                .Where(b => b.Title == searchTerm || b.Author == searchTerm)
+                .Where(b => string.Equals(b.Title, searchTerm, StringComparison.OrdinalIgnoreCase)
+         || string.Equals(b.Author, searchTerm, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
