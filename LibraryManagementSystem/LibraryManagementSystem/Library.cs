@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Text.Json;
 
 namespace LibraryManagementSystem
 {
@@ -42,6 +44,20 @@ namespace LibraryManagementSystem
             }
 
             return book.ReturnBook();
+        }
+
+        public void SaveToFile(string filePath)
+        {
+            string json = JsonSerializer.Serialize(books);
+            File.WriteAllText(filePath, json);
+        }
+
+        public void LoadFromFile(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            var loadedBooks = JsonSerializer.Deserialize<List<Book>>(json);
+
+            books = loadedBooks ?? new List<Book>();
         }
     }
 }

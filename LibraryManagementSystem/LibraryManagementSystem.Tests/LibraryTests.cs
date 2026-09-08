@@ -113,5 +113,42 @@ namespace LibraryManagementSystem.Tests
             Assert.Throws<KeyNotFoundException>(() =>
                 library.ReturnBook("A Book That Does Not Exist"));
         }
+
+        [Test]
+        public void SaveToFile_ThenLoadFromFile_RestoresBooksAndBorrowedStatus()
+        {
+            string tempFilePath = Path.GetTempFileName();
+
+            try
+            {
+                var library = new Library();
+                var book1 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling");
+                var book2 = new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling");
+                library.AddBook(book1);
+                library.AddBook(book2);
+                library.BorrowBook("Harry Potter and the Chamber of Secrets");
+
+                library.SaveToFile(tempFilePath);
+
+                var loadedLibrary = new Library();
+                loadedLibrary.LoadFromFile(tempFilePath);
+
+                var restoredBook1 = loadedLibrary.SearchBook("Harry Potter and the Philosopher's Stone");
+                var restoredBook2 = loadedLibrary.SearchBook("Harry Potter and the Chamber of Secrets");
+
+                Assert.That(restoredBook1, Is.Not.Null);
+                Assert.That(restoredBook1!.IsBorrowed, Is.False);
+
+                Assert.That(restoredBook2, Is.Not.Null);
+                Assert.That(restoredBook2!.IsBorrowed, Is.True);
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
     }
 }

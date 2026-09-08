@@ -13,6 +13,14 @@
             IsBorrowed = false;
         }
 
+        [System.Text.Json.Serialization.JsonConstructor]
+        public Book(string title, string author, bool isBorrowed)
+        {
+            Title = title;
+            Author = author;
+            IsBorrowed = isBorrowed;
+        }
+
         public bool BorrowBook()
         {
             if (IsBorrowed)
