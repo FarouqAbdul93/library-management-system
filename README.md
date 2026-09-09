@@ -1,5 +1,8 @@
 # Library Management System
 
+
+> **Note:** This solution is implemented in C# (.NET 8). Method and class signatures from the original brief (written in Java-style syntax) have been adapted to C# naming conventions, e.g. `boolean` → `bool`, `ArrayList<Book>` → `List<Book>`, `toString()` → `ToString()`.
+
 A console-based Library Management System built in C# (.NET 8). Users can add, search, borrow, and return books, and the library's state is saved between sessions.
 
 ## How to Run
@@ -7,7 +10,9 @@ A console-based Library Management System built in C# (.NET 8). Users can add, s
 1. Make sure you have the [.NET 8 SDK](https://dotnet.microsoft.com/download) installed.
 2. Clone this repository:
 
+```
 git clone https://github.com/FarouqAbdul93/library-management-system.git
+```
 
 3. Open `LibraryManagementSystem.sln` in Visual Studio 2022 (or later).
 4. Make sure `LibraryManagementSystem` is set as the startup project (it should be by default).
@@ -15,17 +20,20 @@ git clone https://github.com/FarouqAbdul93/library-management-system.git
 
 Alternatively, from the command line:
 
+```
 cd LibraryManagementSystem/LibraryManagementSystem
 dotnet run
+```
 
 
 ### Running the tests
 
 Open Test Explorer in Visual Studio and click "Run All Tests", or run from the command line:
 
+```
 cd LibraryManagementSystem.Tests
 dotnet test
-
+```
 
 ## Features Implemented
 
